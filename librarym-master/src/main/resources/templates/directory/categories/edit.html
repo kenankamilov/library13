@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-600 to-teal-800 text-white min-h-screen py-10">
+
+<div class="container mx-auto px-4">
+    <h1 class="text-4xl font-semibold text-center text-white mb-6">Edit Category</h1>
+
+    <div class="w-full max-w-md mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+        <form th:action="@{/categories/update}" th:object="${category}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <div class="mb-4">
+                <label for="name" class="block text-gray-300 text-lg mb-2">Category Name:</label>
+                <input type="text" id="name" th:field="*{name}" required class="w-full px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-gray-200 focus:outline-none focus:border-blue-400">
+            </div>
+
+            <div class="flex justify-center mt-6">
+                <button type="submit" class="px-6 py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-300">
+                    Update Category
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-purple-800 to-purple-600 text-white min-h-screen flex items-center justify-center py-10">
+
+<div class="w-full max-w-3xl bg-gray-800 p-8 rounded-xl shadow-xl">
+    <h1 class="text-3xl font-semibold text-center text-purple-400 mb-6">Edit Book</h1>
+    <form th:action="@{/books/update}" th:object="${book}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <!-- ISBN -->
+        <div class="mb-6">
+            <label for="isbn" class="block text-sm font-semibold text-gray-300">ISBN:</label>
+            <input type="text" id="isbn" th:field="*{isbn}" class="mt-2 w-full px-4 py-2 bg-gray-700 rounded-md text-gray-200" required>
+        </div>
+
+        <!-- Title -->
+        <div class="mb-6">
+            <label for="title" class="block text-sm font-semibold text-gray-300">Title:</label>
+            <input type="text" id="title" th:field="*{title}" class="mt-2 w-full px-4 py-2 bg-gray-700 rounded-md text-gray-200" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-6">
+            <label for="category" class="block text-sm font-semibold text-gray-300">Category:</label>
+            <select id="category" th:field="*{category.id}" class="mt-2 w-full px-4 py-2 bg-gray-700 rounded-md text-gray-200" required>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
+
+        <!-- Stock -->
+        <div class="mb-6">
+            <label for="stock" class="block text-sm font-semibold text-gray-300">Stock:</label>
+            <input type="number" id="stock" th:field="*{stock}" class="mt-2 w-full px-4 py-2 bg-gray-700 rounded-md text-gray-200" required>
+        </div>
+
+        <!-- Update Button -->
+        <div class="mt-4 text-center">
+            <button type="submit" class="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition duration-300">
+                Update
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
