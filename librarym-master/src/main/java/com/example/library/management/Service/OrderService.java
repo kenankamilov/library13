@@ -1,59 +1,51 @@
 package com.example.library.management.Service;
 
-import com.example.library.management.Model.Book;
 import com.example.library.management.Model.Order;
 import com.example.library.management.Repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime;  // Add this import
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final BookService bookService;
 
-    // Constructor Injection
-    public OrderService(OrderRepository orderRepository, BookService bookService) {
+    @Autowired
+    public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
-        this.bookService = bookService;
     }
 
-    public Order createOrder(Order order) {
-        if (order.getBook() == null) {
-            throw new RuntimeException("Book cannot be null");
-        }
-
-        Book book = order.getBook();
-        if (book.getStock() == null || book.getStock() <= 0) {
-            throw new RuntimeException("Book is out of stock");
-        }
-
-        book.decreaseStock();
-        bookService.saveBook(book); // Save the updated book
-        order.setOrderTimestamp(LocalDateTime.now());
-        return orderRepository.save(order);
+    // Get all orders
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 
-    public Order returnOrder(Order order) {
-        if (order == null || order.getBook() == null) {
-            throw new RuntimeException("Invalid order or book not found");
-        }
-
-        Book book = order.getBook();
-        book.increaseStock();
-        bookService.saveBook(book); // Save the updated book
-        order.setReturned(true);
-        return orderRepository.save(order);
-    }
-
-    public List<Order> getOrdersByStudent(Long studentId) {
-        return orderRepository.findByStudentId(studentId);
-    }
-
+    // Get order by ID
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
+        Optional<Order> order = orderRepository.findById(id);
+        return order.orElse(null); // Return null if not found
+    }
+
+    // Create a new order
+    public void createOrder(Order order) {
+        orderRepository.save(order);
+    }
+
+    // Return a book (update return timestamp)
+    public void returnOrder(Long id) {
+        Order order = getOrderById(id);
+        if (order != null) {
+            order.setReturnTimestamp(LocalDateTime.now());  // Use LocalDateTime here
+            orderRepository.save(order);
+        }
+    }
+
+    // Delete an order
+    public void deleteOrder(Long id) {
+        orderRepository.deleteById(id);
     }
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kateqoriyalar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+  <h2 class="text-4xl font-bold mb-6 text-center">Kateqoriyalar</h2>
+  <table class="min-w-full table-auto bg-white shadow-lg rounded-lg">
+    <thead>
+    <tr>
+      <th class="px-6 py-4 text-left">Ad</th>
+      <th class="px-6 py-4 text-left">Əməliyyatlar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Thymeleaf loop for dynamically displaying categories -->
+    <tr th:each="category : ${categories}">
+      <td class="px-6 py-4" th:text="${category.name}">Ədəbiyyat</td>
+      <td class="px-6 py-4">
+        <a th:href="@{/categories/books/{id}(id=${category.id})}" class="text-teal-600 hover:text-teal-800">Kitablar</a> |
+        <a th:href="@{/categories/update/{id}(id=${category.id})}" class="text-yellow-600 hover:text-yellow-800">Redaktə et</a> |
+        <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="text-red-600 hover:text-red-800">Sil</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/categories/create" class="bg-teal-600 text-white px-6 py-3 rounded-full mt-6 block text-center">Yeni Kateqoriya Əlavə et</a>
+</div>
+</body>
+</html>

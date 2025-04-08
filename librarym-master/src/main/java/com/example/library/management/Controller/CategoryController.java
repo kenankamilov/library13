@@ -1,53 +1,48 @@
 package com.example.library.management.Controller;
 
-
 import com.example.library.management.Model.Category;
 import com.example.library.management.Service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryService categoryService;
-
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public String listCategories(Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
-        return "directory/categories/list";
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
+        return "categories/list";
     }
 
     @GetMapping("/create")
-    public String createCategoryForm(Model model) {
-        model.addAttribute("category", new Category());
-        return "directory/categories/create";
+    public String createCategoryForm() {
+        return "categories/create";
     }
 
-    @PostMapping
-    public String saveCategory(@ModelAttribute Category category) {
-        categoryService.saveCategory(category);
+    @PostMapping("/create")
+    public String createCategory(@ModelAttribute Category category) {
+        categoryService.createCategory(category);
         return "redirect:/categories";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editCategoryForm(@PathVariable Long id, Model model) {
-        Category category = categoryService.getCategoryById(id);
-        if (category == null) {
-            return "redirect:/categories";
-        }
-        model.addAttribute("category", category);
-        return "directory/categories/edit";
+    @GetMapping("/update/{id}")
+    public String updateCategoryForm(@PathVariable Long id, Model model) {
+        model.addAttribute("category", categoryService.getCategoryById(id).orElse(null));
+        return "categories/update";
     }
 
-    @PostMapping("/update")
-    public String updateCategory(@ModelAttribute Category category) {
-        categoryService.updateCategory(category);
+    @PostMapping("/update/{id}")
+    public String updateCategory(@PathVariable Long id, @ModelAttribute Category category) {
+        categoryService.updateCategory(id, category);
         return "redirect:/categories";
     }
 
@@ -55,5 +50,11 @@ public class CategoryController {
     public String deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return "redirect:/categories";
+    }
+
+    @GetMapping("/{id}")
+    public String viewCategory(@PathVariable Long id, Model model) {
+        model.addAttribute("category", categoryService.getCategoryById(id).orElse(null));
+        return "categories/view";
     }
 }

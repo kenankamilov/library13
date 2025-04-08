@@ -3,12 +3,14 @@ package com.example.library.management.Controller;
 
 import com.example.library.management.Model.Student;
 import com.example.library.management.Service.StudentService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/students")
 public class StudentController {
 
@@ -19,23 +21,54 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Student>> getAllStudents() {
-        return ResponseEntity.ok(studentService.getAllStudents());
+    public String listStudents(Model model) {
+        model.addAttribute("students", studentService.getAllStudents());
+        return "students/list";
     }
 
-    @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        return ResponseEntity.ok(studentService.createStudent(student));
+    @GetMapping("/create")
+    public String createStudentForm(Model model) {
+        model.addAttribute("student", new Student());
+        return "students/create";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
-        return ResponseEntity.ok(studentService.updateStudent(id, student));
+    @PostMapping("/create")
+    public String createStudent( @ModelAttribute Student student, BindingResult result) {
+        if (result.hasErrors()) {
+            return "students/create";
+        }
+        studentService.createStudent(student);
+        return "redirect:/students";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+    @GetMapping("/update/{id}")
+    public String updateStudentForm(@PathVariable Long id, Model model) {
+        Student student = studentService.getStudentById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+        model.addAttribute("student", student);
+        return "students/update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateStudent(@PathVariable Long id,  @ModelAttribute Student student, BindingResult result) {
+        if (result.hasErrors()) {
+            return "students/update";
+        }
+        studentService.updateStudent(id, student);
+        return "redirect:/students";
+    }
+
+    @GetMapping("/view/{id}")
+    public String viewStudent(@PathVariable Long id, Model model) {
+        Student student = studentService.getStudentById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+        model.addAttribute("student", student);
+        return "students/view";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/students";
     }
 }

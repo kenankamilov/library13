@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Register</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            overflow: hidden;
+        }
+
+        .register-container {
+            width: 400px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transform: translateY(-20px);
+            animation: fadeIn 1s forwards;
+            position: relative;
+        }
+
+        .register-container h2 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .input-group label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            color: #ccc;
+            transform: translateY(-50%);
+            transition: 0.3s;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: 5px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: #ff9800;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+
+        .links {
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #ff9800;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .sticker {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background-image: url('https://image.shutterstock.com/image-vector/book-icon-symbol-education-logo-260nw-1454202705.jpg');
+            background-size: cover;
+            z-index: 10;
+            transform: rotate(15deg);
+        }
+
+        .sticker2 {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 60px;
+            height: 60px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Sticker_icon_2017.png');
+            background-size: cover;
+            z-index: 10;
+            transform: rotate(-15deg);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <div class="sticker"></div> <!-- Kitab şəkli -->
+    <div class="sticker2"></div> <!-- Stiker şəkli -->
+
+    <h2>Qeydiyyat</h2>
+    <form action="/admin/register" method="post">
+        <div class="input-group">
+            <input type="text" id="username" name="username" placeholder=" " required>
+            <label for="username">İstifadəçi adı</label>
+        </div>
+
+        <div class="input-group">
+            <input type="password" id="password" name="password" placeholder=" " required>
+            <label for="password">Şifrə</label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" id="role" name="role" placeholder=" " required>
+            <label for="role">Rol</label>
+        </div>
+
+        <button type="submit">Qeydiyyatdan keç</button>
+    </form>
+
+    <div class="links">
+        <a href="/admin/login">Girişə qayıt</a>
+    </div>
+</div>
+
+</body>
+</html>

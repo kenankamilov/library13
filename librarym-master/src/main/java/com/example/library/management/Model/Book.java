@@ -1,46 +1,109 @@
 package com.example.library.management.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import java.util.Set;
+import java.time.LocalDateTime;
 
-@Data
 @Entity
-@Table(name = "book")
+@Table(name = "books")
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String isbn;
+    @Column(nullable = false, unique = true)
+    private int isbn;
 
-    // Category ilə əlaqə
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @Column(nullable = false)
+    private String title;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "author_id", nullable = false)
+    private Author author;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    private Integer stock; // Use Integer to allow null values
+    private int stock;
 
-    // Author ilə ManyToMany əlaqəsi
-    @ManyToMany
-    @JoinTable(
-            name = "book_author",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors;
+    private String image;
 
-    public void decreaseStock() {
-        if (this.stock == null || this.stock <= 0) {
-            throw new RuntimeException("Kitabın stoku bitib.");
-        }
-        this.stock--;
+    private String description;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public void increaseStock() {
-        if (this.stock == null) {
-            this.stock = 0;
-        }
-        this.stock++;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

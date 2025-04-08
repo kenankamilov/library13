@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tələbəni Yenilə</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+    <h2 class="text-4xl font-bold mb-6 text-center">Tələbəni Yenilə</h2>
+    <form action="/students/update/{studentId}" method="post" class="bg-white p-6 rounded-lg shadow-lg">
+        <label for="firstName" class="block text-lg mb-2">Ad</label>
+        <input type="text" id="firstName" name="firstName" value="{{student.firstName}}" class="border p-2 rounded-md w-full mb-6">
+
+        <label for="lastName" class="block text-lg mb-2">Soyad</label>
+        <input type="text" id="lastName" name="lastName" value="{{student.lastName}}" class="border p-2 rounded-md w-full mb-6">
+
+        <label for="email" class="block text-lg mb-2">E-poçt</label>
+        <input type="email" id="email" name="email" value="{{student.email}}" class="border p-2 rounded-md w-full mb-6">
+
+        <button type="submit" class="bg-teal-600 text-white px-6 py-3 rounded-full hover:bg-teal-800">Yenilə</button>
+    </form>
+</div>
+</body>
+</html>

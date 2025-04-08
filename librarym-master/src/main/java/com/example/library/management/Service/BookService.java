@@ -1,11 +1,7 @@
 package com.example.library.management.Service;
 
-
 import com.example.library.management.Model.Book;
-import com.example.library.management.Model.Category;
 import com.example.library.management.Repository.BookRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,63 +16,38 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    public Page<Book> getAllBooks(Pageable pageable) {
-        return bookRepository.findAll(pageable);
-    }
-
+    // Get all books
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
-    public void saveBook(Book book) {
+    // Create a new book
+    public void createBook(Book book) {
         bookRepository.save(book);
     }
 
-    public Optional<Book> getBookById(Long id) {
-        return bookRepository.findById(id);
+    // Get book by ID
+    public Book getBookById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        return book.orElseThrow(() -> new RuntimeException("Kitab tapılmadı: " + id));
     }
 
-    public Book getBookDetails(Long id) {
-        return getBookById(id).orElseThrow(() -> new IllegalArgumentException("Kitab tapılmadı: " + id));
-    }
-
-    public Page<Book> getBooksByCategory(Category category, Pageable pageable) {
-        return bookRepository.findByCategory(category, pageable);
-    }
-
-    public List<Book> getBooksByCategory(Category category) {
-        return bookRepository.findByCategory(category);
-    }
-
-    public void updateBook(Long id, Book book) {
-        Book existingBook = getBookById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Kitab tapılmadı: " + id));
-
-        existingBook.setTitle(book.getTitle());
-        existingBook.setIsbn(book.getIsbn());
-        existingBook.setCategory(book.getCategory());
-        existingBook.setStock(book.getStock());
-
+    // Update book
+    public void updateBook(Long id, Book updatedBook) {
+        Book existingBook = getBookById(id);  // This will throw an exception if not found
+        existingBook.setIsbn(updatedBook.getIsbn());
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setCategory(updatedBook.getCategory());
+        existingBook.setStock(updatedBook.getStock());
+        existingBook.setImage(updatedBook.getImage());
+        existingBook.setDescription(updatedBook.getDescription());
         bookRepository.save(existingBook);
     }
 
+    // Delete book
     public void deleteBook(Long id) {
-        bookRepository.deleteById(id);
-    }
-
-    public void decreaseStock(Long bookId) {
-        Book book = getBookById(bookId)
-                .orElseThrow(() -> new IllegalArgumentException("Kitab tapılmadı: " + bookId));
-
-        book.decreaseStock();
-        bookRepository.save(book);
-    }
-
-    public void increaseStock(Long bookId) {
-        Book book = getBookById(bookId)
-                .orElseThrow(() -> new IllegalArgumentException("Kitab tapılmadı: " + bookId));
-
-        book.increaseStock();
-        bookRepository.save(book);
+        Book book = getBookById(id);
+        bookRepository.delete(book);
     }
 }

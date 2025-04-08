@@ -1,10 +1,16 @@
 package com.example.library.management.Model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@Data
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -12,17 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @Column(nullable = false)
+    private String role;
 }

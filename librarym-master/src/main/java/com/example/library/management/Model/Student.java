@@ -6,20 +6,26 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Data
+@Table(name = "students")
+@Data // Lombok: Getter, Setter, toString, equals, hashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "student")
+@Builder
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String identifier; // Unique SIF (Student Identifier)
+
+    @Column(nullable = false)
     private String name;
-    private String surname;
+
+    @Column(nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Order> orders;
 }

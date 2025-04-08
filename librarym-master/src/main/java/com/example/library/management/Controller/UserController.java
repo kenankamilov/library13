@@ -1,36 +1,42 @@
 package com.example.library.management.Controller;
 
-import com.example.library.management.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.library.management.Model.User;
+import com.example.library.management.Service.CustomUserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/login")
+@Controller
+@RequestMapping("/admin")
 public class UserController {
 
-    private final UserService userService;
+    private final CustomUserDetailsService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
+    public UserController(CustomUserDetailsService userService) {
         this.userService = userService;
     }
 
+    @GetMapping("/login")
+   public String loginForm() {
+       return "admin/login";  // Login səhifəsinə yönləndirir
+   }
 
-    @GetMapping
-    public String showLoginPage() {
-        return "directory/security/login";
+
+
+    @GetMapping("/home")
+    public String websiteHome() {
+        return "admin/home";  // Admin paneli
     }
 
+    @GetMapping("/register")
+    public String registerForm(Model model) {
+        model.addAttribute("user", new User());
+        return "admin/register";  // Yeni admin qeydiyyatı üçün
+    }
 
-    @PostMapping
-    public String login(@RequestParam String username, @RequestParam String password) {
-        boolean isAuthenticated = userService.authenticateUser(username, password);
-
-        if (isAuthenticated) {
-            return "redirect:/home";
-        } else {
-            return "directory/security/login";
-        }
+    @PostMapping("/register")
+    public String registerAdmin(@ModelAttribute User user) {
+        userService.registerAdmin(user);
+        return "redirect:/admin/login?registered";
     }
 }

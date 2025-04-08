@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>View Author</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Author Details Styles */
+        .author-details {
+            background-color: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .author-details p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .author-details strong {
+            color: #343a40;
+        }
+
+        /* Action Links Styles */
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .actions a {
+            margin: 0 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .actions a:hover {
+            text-decoration: underline;
+        }
+
+        .actions a.delete-link {
+            color: #dc3545;
+        }
+
+        .actions a.delete-link:hover {
+            color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Author Details</h1>
+
+<div class="author-details">
+    <p><strong>Name:</strong> <span th:text="${author.name}"></span></p>
+    <p><strong>Biography:</strong></p>
+    <p th:text="${author.biography}"></p>
+</div>
+
+<div class="actions">
+    <a href="/authors">Back to List</a> |
+    <a th:href="@{/authors/update/{id}(id=${author.id})}">Edit</a> |
+    <a th:href="@{/authors/delete/{id}(id=${author.id})}" class="delete-link" onclick="return confirm('Are you sure?')">Delete</a>
+</div>
+
+</body>
+</html>

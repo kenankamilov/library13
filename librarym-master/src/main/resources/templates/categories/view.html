@@ -1,0 +1,22 @@
+<!-- View Category -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kateqoriyanın Detalları</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+    <h2 class="text-4xl font-bold mb-6 text-center">Kateqoriyanın Detalları</h2>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-semibold mb-2">Kateqoriya Adı: {{category.name}}</h3>
+        <p class="text-lg">Açıqlama: {{category.description}}</p>
+    </div>
+    <div class="mt-6 text-center">
+        <a href="/categories" class="bg-teal-600 text-white px-6 py-3 rounded-full hover:bg-teal-800">Geri qayıt</a>
+    </div>
+</div>
+</body>
+</html>
