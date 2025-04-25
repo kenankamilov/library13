@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -28,66 +31,85 @@ public class BookController {
         this.categoryService = categoryService;
     }
 
-    // ✅ List all books
     @GetMapping
     public String listBooks(Model model) {
-        logger.info("Fetching all books");
+        logger.info("Bütün kitablar gətirilir");
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
-        return "books/list";  // Thymeleaf template: books/list.html
+        return "books/list";
     }
 
-    // ✅ Show book creation form (Thymeleaf)
     @GetMapping("/create")
     public String createBookForm(Model model) {
-        logger.info("Displaying book creation form");
+        logger.info("Kitab əlavəetmə forması göstərilir");
         model.addAttribute("book", new Book());
-        model.addAttribute("authors", authorService.getAllAuthors());  // Fetch authors for dropdown
-        model.addAttribute("categories", categoryService.getAllCategories());  // Fetch categories for dropdown
-        return "books/create";  // Thymeleaf template: books/create.html
+        model.addAttribute("authors", authorService.getAllAuthors());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "books/create";
     }
 
-    // ✅ Handle book creation form submission
     @PostMapping("/create")
-    public String createBook(@ModelAttribute Book book) {
-        logger.info("Creating a new book: {}", book.getTitle());
+    public String createBook(@ModelAttribute Book book, @RequestParam("imageFile") MultipartFile imageFile) {
+        logger.info("Yeni kitab yaradılır: {}", book.getTitle());
+
+        if (!imageFile.isEmpty()) {
+            // Unikal şəkil adı yaratmaq üçün zaman damğası ilə birləşdiririk
+            String imageName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+            String uploadDir = "src/main/resources/static/"; // Şəkilləri static qovluğunda saxlayırıq
+
+            try {
+                File uploadPath = new File(uploadDir);
+                if (!uploadPath.exists()) {
+                    boolean dirsCreated = uploadPath.mkdirs(); // Qovluğu yarat və nəticəni saxla
+                    if (!dirsCreated) {
+                        logger.warn("Qovluq yaradılmadı: {}", uploadDir); // Əgər qovluq yaradılmadısa xəbərdarlıq et
+                    }
+                }
+
+                // Şəkili həmin qovluğa yükləyirik
+                imageFile.transferTo(new File(uploadDir + imageName));
+
+                // Şəkil URL-i
+                book.setImage("/" + imageName); // Şəkil yolunu düz təqdim et
+            } catch (IOException e) {
+                logger.error("Şəkil yüklənərkən xəta baş verdi", e);
+            }
+        }
+
+        // Kitabın məlumatlarını bazaya əlavə edirik
         bookService.createBook(book);
-        return "redirect:/books";
+        return "redirect:/books"; // Kitablar siyahısına yönləndiririk
     }
 
-    // ✅ Show book update form
     @GetMapping("/update/{id}")
     public String updateBookForm(@PathVariable Long id, Model model) {
-        logger.info("Displaying update form for book ID: {}", id);
+        logger.info("ID-si {} olan kitab üçün yeniləmə forması göstərilir", id);
         Book book = bookService.getBookById(id);
         model.addAttribute("book", book);
-        model.addAttribute("authors", authorService.getAllAuthors());  // Fetch authors for dropdown
-        model.addAttribute("categories", categoryService.getAllCategories());  // Fetch categories for dropdown
-        return "books/update";  // Thymeleaf template: books/update.html
+        model.addAttribute("authors", authorService.getAllAuthors());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "books/update";
     }
 
-    // ✅ Handle book update form submission
     @PostMapping("/update/{id}")
     public String updateBook(@PathVariable Long id, @ModelAttribute Book book) {
-        logger.info("Updating book ID: {}", id);
+        logger.info("ID-si {} olan kitab yenilənir", id);
         bookService.updateBook(id, book);
         return "redirect:/books";
     }
 
-    // ✅ Delete a book
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
-        logger.info("Deleting book ID: {}", id);
+        logger.info("ID-si {} olan kitab silinir", id);
         bookService.deleteBook(id);
         return "redirect:/books";
     }
 
-    // ✅ View details of a single book
     @GetMapping("/{id}")
     public String viewBook(@PathVariable Long id, Model model) {
-        logger.info("Viewing details for book ID: {}", id);
+        logger.info("ID-si {} olan kitabın detalları göstərilir", id);
         Book book = bookService.getBookById(id);
         model.addAttribute("book", book);
-        return "books/view";  // Thymeleaf template: books/view.html
+        return "books/view";
     }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sifariş Yenilə</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-6">
+    <h2 class="text-4xl font-bold mb-6 text-center">Sifariş Yenilə</h2>
+    <form action="/orders/update/1" method="post" class="bg-white p-6 rounded-lg shadow-lg">
+        <label for="student" class="block text-lg mb-2">Tələbə Seçin</label>
+        <select id="student" name="studentId" class="border p-2 rounded-md w-full mb-6">
+            <!-- Tələbə siyahısını burada daxil edəcəksiniz -->
+        </select>
+
+        <label for="book" class="block text-lg mb-2">Kitab Seçin</label>
+        <select id="book" name="bookId" class="border p-2 rounded-md w-full mb-6">
+            <!-- Kitab siyahısını burada daxil edəcəksiniz -->
+        </select>
+
+        <button type="submit" class="bg-teal-600 text-white px-6 py-3 rounded-full hover:bg-teal-800">Sifarişi Yenilə</button>
+    </form>
+</div>
+</body>
+</html>

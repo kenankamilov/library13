@@ -10,10 +10,10 @@
 <body class="bg-gray-100">
 <div class="container mx-auto p-6">
     <h2 class="text-4xl font-bold mb-6 text-center">Kateqoriyanı Redaktə et</h2>
-    <form action="/categories/update" method="POST">
+    <form th:action="@{/categories/update/{id}(id=${category.id})}" method="post">
         <div class="mb-4">
             <label for="name" class="block text-lg">Ad</label>
-            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg" value="Ədəbiyyat" required>
+            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg" value="" required>
         </div>
         <div class="mb-4 text-center">
             <button type="submit" class="bg-teal-600 text-white px-6 py-3 rounded-full">Kateqoriyanı Yenilə</button>

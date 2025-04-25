@@ -21,62 +21,55 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    // ✅ List all authors
     @GetMapping
     public String listAuthors(Model model) {
-        logger.info("Fetching all authors");
+        logger.info("Bütün müəlliflər gətirilir");
         List<Author> authors = authorService.getAllAuthors();
         model.addAttribute("authors", authors);
-        return "authors/list";  // Thymeleaf template: authors/list.html
+        return "authors/list";
     }
 
-    // ✅ Show author creation form
     @GetMapping("/create")
     public String createAuthorForm(Model model) {
-        logger.info("Displaying author creation form");
+        logger.info("Müəllif yaratma forması göstərilir");
         model.addAttribute("author", new Author());
-        return "authors/create";  // Thymeleaf template: authors/create.html
+        return "authors/create";
     }
 
-    // ✅ Handle author creation form submission
     @PostMapping("/create")
     public String createAuthor(@ModelAttribute Author author) {
-        logger.info("Creating a new author: {}", author.getName());
-        authorService.saveAuthor(author); // use saveAuthor instead of createAuthor
+        logger.info("Yeni müəllif yaradılır: {}", author.getName());
+        authorService.saveAuthor(author);
         return "redirect:/authors";
     }
 
-    // ✅ Show author update form
     @GetMapping("/update/{id}")
     public String updateAuthorForm(@PathVariable Long id, Model model) {
-        logger.info("Displaying update form for author ID: {}", id);
+        logger.info("ID-si {} olan müəllif üçün yeniləmə forması göstərilir", id);
         Author author = authorService.getAuthorById(id);
         model.addAttribute("author", author);
-        return "authors/update";  // Thymeleaf template: authors/update.html
+        return "authors/update";
     }
 
-    // ✅ Handle author update form submission
     @PostMapping("/update/{id}")
     public String updateAuthor(@PathVariable Long id, @ModelAttribute Author author) {
-        logger.info("Updating author ID: {}", id);
-        authorService.updateAuthor(id, author);  // Correcting this method
+        logger.info("ID-si {} olan müəllif yenilənir", id);
+        authorService.updateAuthor(id, author);
         return "redirect:/authors";
     }
 
-    // ✅ Delete an author
     @GetMapping("/delete/{id}")
     public String deleteAuthor(@PathVariable Long id) {
-        logger.info("Deleting author ID: {}", id);
+        logger.info("ID-si {} olan müəllif silinir", id);
         authorService.deleteAuthor(id);
         return "redirect:/authors";
     }
 
-    // ✅ View details of a single author
     @GetMapping("/{id}")
     public String viewAuthor(@PathVariable Long id, Model model) {
-        logger.info("Viewing details for author ID: {}", id);
+        logger.info("ID-si {} olan müəllifin detalları göstərilir", id);
         Author author = authorService.getAuthorById(id);
         model.addAttribute("author", author);
-        return "authors/view";  // Thymeleaf template: authors/view.html
+        return "authors/view";
     }
 }

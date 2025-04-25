@@ -2,6 +2,7 @@ package com.example.library.management.Service;
 
 import com.example.library.management.Model.User;
 import com.example.library.management.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,25 +10,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public CustomUserDetailsService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var users = userRepository.findByUsername(username);
 
         if (users.isEmpty()) {
-            throw new UsernameNotFoundException("User not found: " + username);
+            throw new UsernameNotFoundException("İstifadəçi tapılmadı: " + username);
         }
 
-        User user = users.get(0); // ilk user götürülür
+        User user = users.get(0);
 
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getUsername())

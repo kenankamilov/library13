@@ -12,7 +12,7 @@
   <h2 class="text-4xl font-bold mb-6 text-center">Kateqoriyanı Silmək Üçün Təsdiq Edin</h2>
   <p class="text-lg text-center mb-6">Bu kateqoriya silinsinmi? Bu əməliyyat geri alına bilməz.</p>
   <div class="text-center">
-    <form action="/categories/delete" method="POST">
+    <a th:href="@{/categories/delete/{id}(id=${category.id})}" class="text-red-600">Sil</a>
       <button type="submit" class="bg-red-600 text-white px-6 py-3 rounded-full">Kateqoriyanı Sil</button>
     </form>
     <a href="categories.html" class="block mt-4 text-teal-600 hover:text-teal-800">Geri qayıt</a>

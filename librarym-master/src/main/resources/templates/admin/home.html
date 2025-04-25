@@ -1,102 +1,227 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kamilov Kitabxanası</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .menu {
+            display: none;
+        }
+        .menu.open {
+            display: block;
+        }
+    </style>
 </head>
 
-<body class="bg-gradient-to-b from-purple-900 to-indigo-900 font-sans antialiased">
+<body class="bg-gradient-to-b from-purple-900 to-indigo-900 text-white font-sans antialiased">
 
-<!-- Hero Section -->
-<div class="bg-gradient-to-r from-green-400 via-teal-500 to-blue-600 text-white py-40 px-8 text-center shadow-lg rounded-lg transform transition duration-500 hover:scale-105">
-    <h1 class="text-7xl font-extrabold tracking-tight mb-8 hover:text-yellow-400 transition-all ease-in-out">Kamilov Kitabxanasına Xoş Gəlmisiniz!</h1>
-    <p class="text-2xl mb-12 opacity-90">Bilik və mədəniyyətlə zəngin bir dünyaya səyahətə çıxmağa hazırsınız? Kitablar həyatınıza rəng qatacaq.</p>
-    <a href="/books" class="bg-yellow-600 text-white hover:bg-yellow-500 px-12 py-6 rounded-full text-xl font-semibold transition duration-300 transform hover:scale-110 shadow-xl">Kitabları Kəşf Et</a>
-</div>
+<!-- Naviqasiya -->
+<header class="bg-purple-800 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-3xl font-bold"><a href="/">📚 Kamilov Kitabxanası</a></h1>
+        <nav class="space-x-6">
+            <a href="/authors" class="hover:text-yellow-400 transition">Yazarlar</a>
+            <a href="/books" class="hover:text-yellow-400 transition">Kitablar</a>
+            <a href="/categories" class="hover:text-yellow-400 transition">Kateqoriyalar</a>
+            <a href="/orders" class="hover:text-yellow-400 transition">Sifarişlər</a>
+            <a href="/students" class="hover:text-yellow-400 transition">Tələbələr</a>
+            <a href="/admin" class="bg-yellow-500 text-gray-900 px-4 py-2 rounded hover:bg-yellow-400 transition">Admin Panel</a>
+        </nav>
+    </div>
+</header>
 
-<!-- About Section -->
-<div class="container mx-auto px-6 py-28 text-center bg-white rounded-lg shadow-lg mt-24">
-    <h2 class="text-4xl font-bold text-gray-800 mb-6">Kitabxanamız haqqında</h2>
-    <p class="text-lg text-gray-700 mb-8 max-w-4xl mx-auto">Kamilov Kitabxanası, müxtəlif sahələrdən kitablardan ibarət geniş kolleksiyası ilə hər yaşdan olan oxuculara ilham verir. Hedefimiz, oxucularımızın zəngin təcrübələr yaşaması və inkişafını dəstəkləməkdir.</p>
-    <a href="/authors" class="bg-teal-600 text-white hover:bg-teal-500 px-8 py-4 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-110 shadow-lg">Yazarları Kəşf Et</a>
-</div>
+<!-- Hero -->
+<section class="text-center py-32 px-6 bg-gradient-to-r from-green-400 via-teal-500 to-blue-600 shadow-lg">
+    <h2 class="text-6xl font-extrabold mb-6 hover:text-yellow-300 transition">Kitablara Sevgini Bizimlə Kəşf Et</h2>
+    <p class="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Ən yaxşı müəlliflər, ən geniş kateqoriyalar, ən rahat sifariş sistemi — hamısı Kamilov Kitabxanasında.</p>
+    <a href="/books" class="bg-yellow-500 text-gray-900 px-10 py-4 rounded-full text-lg font-semibold hover:bg-yellow-400 transition transform hover:scale-105 shadow-xl">Kitabları Kəşf Et</a>
+</section>
 
-<!-- Featured Books Section -->
-<div class="bg-gradient-to-b from-gray-100 to-gray-200 py-24">
-    <div class="container mx-auto px-6">
-        <h2 class="text-5xl font-semibold text-center text-gray-800 mb-16">Öne Çıxan Kitablar</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
-            <!-- Book 1 -->
-            <div class="bg-white p-8 shadow-2xl rounded-lg transform hover:scale-105 transition duration-300">
-                <img src="book-cover-1.jpg" alt="Book 1" class="w-full h-56 object-cover mb-6 rounded-lg">
-                <h3 class="text-2xl font-semibold text-gray-800">Kitabın Adı 1</h3>
-                <p class="text-gray-600 mt-2 mb-4">Qısa kitab təsviri burada olacaq. Mükəmməl bir yolculuğa çıxın.</p>
-                <div class="flex items-center mt-4 mb-6">
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
+
+<!-- Yazarlar əməliyyatları -->
+<section class="bg-white text-gray-800 py-24 px-6">
+    <div class="container mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-12">Yazarlar Əməliyyatları</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+
+            <!-- Yazarlar düyməsi -->
+            <div class="relative inline-block text-left">
+                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg transition" onclick="toggleMenu()">
+                    Yazarlar
+                    <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Yazarlar seçimlər menyusu -->
+                <div id="authorMenu" class="menu mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1 rounded-md bg-white shadow-xs">
+                        <a href="/authors" class="text-gray-700 block px-4 py-2 text-sm">📋 Yazarlar Siyahısı</a>
+                        <a href="/authors/create" class="text-gray-700 block px-4 py-2 text-sm">➕ Yeni Yazar Əlavə et</a>
+                        <a href="/authors/1" class="text-gray-700 block px-4 py-2 text-sm">👁️ Yazarın Məlumatlarına Bax (ID: 1)</a>
+                        <a href="/authors/update/1" class="text-gray-700 block px-4 py-2 text-sm">✏️ Yazar Məlumatlarını Yenilə (ID: 1)</a>
+                        <a href="/authors/delete/1" class="text-gray-700 block px-4 py-2 text-sm">🗑️ Yazar Sil (ID: 1)</a>
+                    </div>
                 </div>
-                <a href="/books/1" class="text-teal-600 hover:text-teal-800">Daha çox oxu &rarr;</a>
             </div>
 
-            <!-- Book 2 -->
-            <div class="bg-white p-8 shadow-2xl rounded-lg transform hover:scale-105 transition duration-300">
-                <img src="book-cover-2.jpg" alt="Book 2" class="w-full h-56 object-cover mb-6 rounded-lg">
-                <h3 class="text-2xl font-semibold text-gray-800">Kitabın Adı 2</h3>
-                <p class="text-gray-600 mt-2 mb-4">Qısa kitab təsviri burada olacaq. Öz dünyanızı kəşf edin.</p>
-                <div class="flex items-center mt-4 mb-6">
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                </div>
-                <a href="/books/2" class="text-teal-600 hover:text-teal-800">Daha çox oxu &rarr;</a>
-            </div>
-
-            <!-- Book 3 -->
-            <div class="bg-white p-8 shadow-2xl rounded-lg transform hover:scale-105 transition duration-300">
-                <img src="book-cover-3.jpg" alt="Book 3" class="w-full h-56 object-cover mb-6 rounded-lg">
-                <h3 class="text-2xl font-semibold text-gray-800">Kitabın Adı 3</h3>
-                <p class="text-gray-600 mt-2 mb-4">Qısa kitab təsviri burada olacaq. Hər səhifə yeni bir başlanğıc.</p>
-                <div class="flex items-center mt-4 mb-6">
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                </div>
-                <a href="/books/3" class="text-teal-600 hover:text-teal-800">Daha çox oxu &rarr;</a>
-            </div>
-
-            <!-- Book 4 -->
-            <div class="bg-white p-8 shadow-2xl rounded-lg transform hover:scale-105 transition duration-300">
-                <img src="book-cover-4.jpg" alt="Book 4" class="w-full h-56 object-cover mb-6 rounded-lg">
-                <h3 class="text-2xl font-semibold text-gray-800">Kitabın Adı 4</h3>
-                <p class="text-gray-600 mt-2 mb-4">Qısa kitab təsviri burada olacaq. Gələcəyinizi bu kitabda tapın.</p>
-                <div class="flex items-center mt-4 mb-6">
-                    <span class="text-yellow-400">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                    <span class="text-gray-300">&#9733;</span>
-                </div>
-                <a href="/books/4" class="text-teal-600 hover:text-teal-800">Daha çox oxu &rarr;</a>
-            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Kateqoriyalar əməliyyatları -->
+<section class="bg-white text-gray-800 py-24 px-6">
+    <div class="container mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-12">Kateqoriyalar Əməliyyatları</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+
+            <!-- Kateqoriyalar düymələri -->
+            <div class="relative inline-block text-left">
+                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg transition" onclick="toggleCategoryMenu()">
+                    Kateqoriyalar
+                    <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Kateqoriyalar seçimlər menyusu -->
+                <div id="categoryMenu" class="menu mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1 rounded-md bg-white shadow-xs">
+                        <a href="/categories/list" class="text-gray-700 block px-4 py-2 text-sm">📋 Kateqoriyalar Siyahısı</a>
+                        <a href="/categories/create" class="text-gray-700 block px-4 py-2 text-sm">➕ Yeni Kateqoriya Əlavə et</a>
+                        <a href="/categories/view" class="text-gray-700 block px-4 py-2 text-sm">👁️ Kateqoriyanı Görüntülə (ID: 1)</a>
+                        <a href="/categories/update/1" class="text-gray-700 block px-4 py-2 text-sm">✏️ Kateqoriyanı Yenilə (ID: 1)</a>
+                        <a href="/categories/delete/1" class="text-gray-700 block px-4 py-2 text-sm">🗑️ Kateqoriyanı Sil (ID: 1)</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Sifarişlər əməliyyatları -->
+<section class="bg-white text-gray-800 py-24 px-6">
+    <div class="container mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-12">Sifarişlər Əməliyyatları</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+
+            <!-- Sifarişlər düyməsi -->
+            <div class="relative inline-block text-left">
+                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg transition" onclick="toggleOrderMenu()">
+                    Sifarişlər
+                    <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Sifarişlər seçimlər menyusu -->
+                <div id="orderMenu" class="menu mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1 rounded-md bg-white shadow-xs">
+                        <a href="/orders/list" class="text-gray-700 block px-4 py-2 text-sm">📋 Sifarişlər Siyahısı</a>
+                        <a href="/orders/create" class="text-gray-700 block px-4 py-2 text-sm">➕ Yeni Sifariş Əlavə et</a>
+                        <a href="/orders/view/1" class="text-gray-700 block px-4 py-2 text-sm">👁️ Sifarişi Görüntülə (ID: 1)</a>
+                        <a href="/orders/update/1" class="text-gray-700 block px-4 py-2 text-sm">✏️ Sifarişi Yenilə (ID: 1)</a>
+                        <a href="/orders/delete/1" class="text-gray-700 block px-4 py-2 text-sm">🗑️ Sifarişi Sil (ID: 1)</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Kitablar əməliyyatları -->
+<section class="bg-white text-gray-800 py-24 px-6">
+    <div class="container mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-12">Kitablar Əməliyyatları</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+
+            <!-- Kitablar düyməsi -->
+            <div class="relative inline-block text-left">
+                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg transition" onclick="toggleBooksMenu()">
+                    Kitablar
+                    <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Kitablar seçimlər menyusu -->
+                <div id="booksMenu" class="menu mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1 rounded-md bg-white shadow-xs">
+                        <a href="/books" class="text-gray-700 block px-4 py-2 text-sm">📋 Kitablar Siyahısı</a>
+                        <a href="/books/create" class="text-gray-700 block px-4 py-2 text-sm">➕ Yeni Kitab Əlavə et</a>
+                        <a href="/books/1" class="text-gray-700 block px-4 py-2 text-sm">👁️ Kitabı Görüntülə (ID: 1)</a>
+                        <a href="/books/update/1" class="text-gray-700 block px-4 py-2 text-sm">✏️ Kitabı Yenilə (ID: 1)</a>
+                        <a href="/books/delete/1" class="text-gray-700 block px-4 py-2 text-sm">🗑️ Kitabı Sil (ID: 1)</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="bg-white text-gray-800 py-24 px-6">
+    <div class="container mx-auto text-center">
+        <h3 class="text-4xl font-bold mb-12">Tələbələr Əməliyyatları</h3>
+        <div class="flex flex-wrap justify-center gap-6">
+
+            <!-- Tələbələr düyməsi -->
+            <div class="relative inline-block text-left">
+                <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full shadow-lg transition" onclick="toggleStudentsMenu()">
+                    Tələbələr
+                    <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Tələbələr seçimlər menyusu -->
+                <div id="studentsMenu" class="menu mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div class="py-1 rounded-md bg-white shadow-xs">
+                        <a href="/students" class="text-gray-700 block px-4 py-2 text-sm">📋 Tələbələr Siyahısı</a>
+                        <a href="/students/create" class="text-gray-700 block px-4 py-2 text-sm">➕ Yeni Tələbə Əlavə et</a>
+                        <a href="/students/1" class="text-gray-700 block px-4 py-2 text-sm">👁️ Tələbəni Görüntülə (ID: 1)</a>
+                        <a href="/students/update/1" class="text-gray-700 block px-4 py-2 text-sm">✏️ Tələbəni Yenilə (ID: 1)</a>
+                        <a href="/students/delete/1" class="text-gray-700 block px-4 py-2 text-sm">🗑️ Tələbəni Sil (ID: 1)</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 <!-- Footer -->
-<footer class="bg-gradient-to-r from-purple-700 to-indigo-700 text-white text-center py-8 mt-24 shadow-inner">
+<footer class="bg-purple-800 text-white text-center py-6 mt-24">
     <p>&copy; 2025 Kamilov Kitabxanası. Bütün hüquqlar qorunur.</p>
 </footer>
 
-</body>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('authorMenu');
+        menu.classList.toggle('open');
+    }
+    function toggleBooksMenu() {
+        const menu = document.getElementById('booksMenu');
+        menu.classList.toggle('open');
+    }
+    function toggleStudentsMenu() {
+        const menu = document.getElementById('studentsMenu');
+        menu.classList.toggle('open');
+    }
 
+    function toggleCategoryMenu() {
+        const menu = document.getElementById('categoryMenu');
+        menu.classList.toggle('open');
+    }
+
+    function toggleOrderMenu() {
+        const menu = document.getElementById('orderMenu');
+        menu.classList.toggle('open');
+    }
+</script>
+
+</body>
 </html>

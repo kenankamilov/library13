@@ -20,6 +20,7 @@ public class Student {
     @Column(nullable = false, unique = true)
     private String identifier; // Unique SIF (Student Identifier)
 
+
     @Column(nullable = false)
     private String name;
 

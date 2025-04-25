@@ -3,33 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sifarişlər</title>
+    <title>Sifarişlər Siyahısı</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
 <div class="container mx-auto p-6">
-    <h2 class="text-4xl font-bold mb-6 text-center">Sifarişlər</h2>
-    <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-lg">
+    <h2 class="text-4xl font-bold mb-6 text-center">Sifarişlər Siyahısı</h2>
+    <table class="min-w-full bg-white rounded-lg shadow-lg">
         <thead>
-        <tr>
-            <th class="py-2 px-4 border-b">Tələbə</th>
-            <th class="py-2 px-4 border-b">Kitab</th>
-            <th class="py-2 px-4 border-b">Sifariş Tarixi</th>
-            <th class="py-2 px-4 border-b">Əməliyyatlar</th>
+        <tr class="bg-gray-200">
+            <th class="px-6 py-4 text-left">Tələbə</th>
+            <th class="px-6 py-4 text-left">Kitab</th>
+            <th class="px-6 py-4 text-left">Tarix</th>
+            <th class="px-6 py-4 text-left">Əməliyyatlar</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Sifarişlərin siyahısı buraya gələcək -->
+        <!-- Sifarişlər burada göstəriləcək -->
         <tr>
-            <td class="py-2 px-4 border-b">Tələbə Adı</td>
-            <td class="py-2 px-4 border-b">Kitab Adı</td>
-            <td class="py-2 px-4 border-b">2025-02-20</td>
-            <td class="py-2 px-4 border-b">
-                <a href="/orders/update/{orderId}" class="text-teal-600 hover:text-teal-800">Redaktə et</a>
-                |
-                <a href="/orders/delete/{orderId}" class="text-red-600 hover:text-red-800">Sil</a>
+            <td class="px-6 py-4">Tələbə Adı</td>
+            <td class="px-6 py-4">Kitab Adı</td>
+            <td class="px-6 py-4">Tarix</td>
+            <td class="px-6 py-4">
+                <a href="/orders/view/1" class="text-blue-600 hover:text-blue-800">Bax</a> |
+                <a href="/orders/update/1" class="text-yellow-600 hover:text-yellow-800">Yenilə</a> |
+                <a href="/orders/delete/1" class="text-red-600 hover:text-red-800">Sil</a>
             </td>
         </tr>
+        <!-- Bu formatda digər sifarişlər göstərilə bilər -->
         </tbody>
     </table>
 </div>
